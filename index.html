@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Sidescroller</title>
+    <title>Simple Sidescroller with PNG Character</title>
     <style>
         canvas {
             border: 1px solid black;
@@ -19,12 +19,20 @@
         const player = {
             x: 50,
             y: 200,
-            width: 30,
-            height: 30,
+            width: 80,
+            height: 150,
             speed: 5,
             jumpForce: 10,
             velY: 0,
-            isJumping: false
+            isJumping: false,
+            image: new Image()
+        };
+
+        // Load the player image
+        player.image.src = 'https://cdn.glitch.global/9f3f9866-1079-4bdf-816f-c5c7af90e5f6/sudoCat.png?v=1724292196265'; // Replace this with the path to your PNG image
+        player.image.onload = () => {
+            // Start the game loop once the image is loaded
+            gameLoop();
         };
 
         const platform = {
@@ -37,8 +45,7 @@
         const keys = {};
 
         function drawPlayer() {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(player.x, player.y, player.width, player.height);
+            ctx.drawImage(player.image, player.x, player.y, player.width, player.height);
         }
 
         function drawPlatform() {
@@ -92,7 +99,7 @@
             keys[e.code] = false;
         });
 
-        gameLoop();
+        // Note: gameLoop() is now called in the image.onload function
     </script>
 </body>
 </html>
